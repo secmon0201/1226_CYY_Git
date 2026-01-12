@@ -20,6 +20,58 @@ SECSYSTEM_API UClass* Z_Construct_UClass_USecComboComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_SecSystem();
 // End Cross Module References
 
+// Begin Class USecComboComponent Function OnMontageEnded
+struct Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics
+{
+	struct SecComboComponent_eventOnMontageEnded_Parms
+	{
+		UAnimMontage* Montage;
+		bool bInterrupted;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_Montage;
+	static void NewProp_bInterrupted_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bInterrupted;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_Montage = { "Montage", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventOnMontageEnded_Parms, Montage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_bInterrupted_SetBit(void* Obj)
+{
+	((SecComboComponent_eventOnMontageEnded_Parms*)Obj)->bInterrupted = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_bInterrupted = { "bInterrupted", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(SecComboComponent_eventOnMontageEnded_Parms), &Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_bInterrupted_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_Montage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::NewProp_bInterrupted,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USecComboComponent, nullptr, "OnMontageEnded", nullptr, nullptr, Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::PropPointers), sizeof(Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::SecComboComponent_eventOnMontageEnded_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::Function_MetaDataParams), Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::SecComboComponent_eventOnMontageEnded_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_USecComboComponent_OnMontageEnded()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(USecComboComponent::execOnMontageEnded)
+{
+	P_GET_OBJECT(UAnimMontage,Z_Param_Montage);
+	P_GET_UBOOL(Z_Param_bInterrupted);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnMontageEnded(Z_Param_Montage,Z_Param_bInterrupted);
+	P_NATIVE_END;
+}
+// End Class USecComboComponent Function OnMontageEnded
+
 // Begin Class USecComboComponent Function StartCombo
 struct Z_Construct_UFunction_USecComboComponent_StartCombo_Statics
 {
@@ -110,6 +162,7 @@ void USecComboComponent::StaticRegisterNativesUSecComboComponent()
 {
 	UClass* Class = USecComboComponent::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "OnMontageEnded", &USecComboComponent::execOnMontageEnded },
 		{ "StartCombo", &USecComboComponent::execStartCombo },
 		{ "TryExecuteCombo", &USecComboComponent::execTryExecuteCombo },
 	};
@@ -166,6 +219,7 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_USecComboComponent_OnMontageEnded, "OnMontageEnded" }, // 3892878020
 		{ &Z_Construct_UFunction_USecComboComponent_StartCombo, "StartCombo" }, // 2118660040
 		{ &Z_Construct_UFunction_USecComboComponent_TryExecuteCombo, "TryExecuteCombo" }, // 2988120846
 	};
@@ -224,10 +278,10 @@ USecComboComponent::~USecComboComponent() {}
 struct Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 2985605547U) },
+		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 1127837172U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_1531976802(TEXT("/Script/SecSystem"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_115396569(TEXT("/Script/SecSystem"),
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

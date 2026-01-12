@@ -48,9 +48,18 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
 	void TryExecuteCombo();
 
+	UFUNCTION()
+	void OnMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+	
 protected:
+
+	// 辅助函数：绑定委托
+	void BindToAnimInstance();
+	
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	
 
 public:	
 	// Called every frame
