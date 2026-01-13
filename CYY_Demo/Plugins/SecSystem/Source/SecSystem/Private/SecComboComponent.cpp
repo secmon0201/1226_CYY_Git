@@ -17,6 +17,15 @@ USecComboComponent::USecComboComponent()
 
 void USecComboComponent::StartCombo(UAnimMontage* OpeningMontage)
 {
+	// [新增保护] 如果当前已经有活跃的蒙太奇，严禁重新 Start！
+	// 这能防止因蓝图逻辑漏洞导致的重复起手
+	if (CurrentActiveMontage != nullptr)
+	{
+		// 可选：你甚至可以在这里把逻辑转发给 TryExecuteCombo
+		// UE_LOG(LogTemp, Warning, TEXT("Combo already active, ignoring StartCombo."));
+		return;
+	}
+	
 	if (OpeningMontage)
 	{
 		ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
