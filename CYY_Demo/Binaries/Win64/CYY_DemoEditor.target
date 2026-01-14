@@ -5462,18 +5462,6 @@
 			"Type": "RequiredResource"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Marketplace/SwitchLanguage_5.4/Binaries/Win64/UnrealEditor-SwitchLanguage.dll",
-			"Type": "DynamicLibrary"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Marketplace/SwitchLanguage_5.4/Binaries/Win64/UnrealEditor-SwitchLanguage.pdb",
-			"Type": "SymbolFile"
-		},
-		{
-			"Path": "$(EngineDir)/Plugins/Marketplace/SwitchLanguage_5.4/Binaries/Win64/UnrealEditor.modules",
-			"Type": "RequiredResource"
-		},
-		{
 			"Path": "$(EngineDir)/Plugins/Media/AndroidMedia/Binaries/Win64/UnrealEditor-AndroidMediaEditor.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -29592,10 +29580,6 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(EngineDir)/Plugins/Marketplace/SwitchLanguage_5.4/SwitchLanguage.uplugin",
-			"Type": "UFS"
-		},
-		{
 			"Path": "$(EngineDir)/Plugins/Media/AndroidMedia/AndroidMedia.uplugin",
 			"Type": "UFS"
 		},
@@ -30034,7 +30018,6 @@
 		"StructUtils",
 		"StudioTelemetry",
 		"SubversionSourceControl",
-		"SwitchLanguage",
 		"Synthesis",
 		"Takes",
 		"TcpMessaging",
