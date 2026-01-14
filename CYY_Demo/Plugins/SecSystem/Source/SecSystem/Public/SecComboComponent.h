@@ -11,6 +11,16 @@
 class USecComboActionData;
 class UAnimMontage;
 
+// 定义动作优先级
+UENUM(BlueprintType)
+enum class ESecActionPriority : uint8
+{
+	None        = 0 UMETA(DisplayName = "无"),
+	Attack      = 1 UMETA(DisplayName = "普通攻击/连招"),
+	HighAction  = 2 UMETA(DisplayName = "技能/闪避/受击"), // 这一层级可以互顶
+	Ultimate    = 3 UMETA(DisplayName = "终结技/大招")
+};
+
 
 UCLASS( ClassGroup=(SecMon), meta=(BlueprintSpawnableComponent) )
 class SECSYSTEM_API USecComboComponent : public UActorComponent
@@ -30,12 +40,22 @@ public:
 	TObjectPtr<USecComboActionData> ComboActionData;
 
 	/** 当前连击状态 */
-	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")
+	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")   
 	FGameplayTag CurrentPhaseTag;
 
 	/** 当前正在播放的连击动画 */
 	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")
 	TObjectPtr<UAnimMontage> CurrentActiveMontage;
+
+	/** 当前动作的优先级 */
+	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")
+	ESecActionPriority CurrentPriority = ESecActionPriority::None;
+
+	/** * 通用的启动动作函数（带优先级）
+	 * 替代 StartCombo 用于非连招动作，或者由 StartCombo 内部调用
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SecCombo")
+	void StartAction(UAnimMontage* Montage, ESecActionPriority Priority);
 
 	// --- 接口 ---
 	/** 由 ANS 调用：设置当前窗口状态 */

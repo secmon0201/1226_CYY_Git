@@ -17,49 +17,70 @@ USecComboComponent::USecComboComponent()
 
 void USecComboComponent::StartCombo(UAnimMontage* OpeningMontage)
 {
-	// [新增保护] 如果当前已经有活跃的蒙太奇，严禁重新 Start！
-	// 这能防止因蓝图逻辑漏洞导致的重复起手
-	if (CurrentActiveMontage)
+	// 直接调用通用函数，传入 Attack 优先级
+	// 这样 Attack 遇到 Attack 会因为优先级相等（但不满足 >= HighAction）而被拒绝
+	// 完美保留了之前的“防重复起手”功能
+	StartAction(OpeningMontage, ESecActionPriority::Attack);
+}
+
+
+void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority Priority)
+{
+	if (!Montage) return;
+
+	// --- 优先级判断逻辑 ---
+    
+	// 1. 如果当前没有动作 (None)，允许播放
+	bool bCanPlay = (CurrentActiveMontage == nullptr);
+
+	// 2. 如果有动作，对比优先级
+	if (!bCanPlay)
 	{
-		// 可选：你甚至可以在这里把逻辑转发给 TryExecuteCombo
-		// UE_LOG(LogTemp, Warning, TEXT("Combo already active, ignoring StartCombo."));
+		// 规则 A：高优先级 必定打断 低优先级 (比如 大招 打断 攻击)
+		if (Priority > CurrentPriority)
+		{
+			bCanPlay = true;
+		}
+		// 规则 B：同级打断 (你提到的：闪避/技能/受击 可以互相覆盖)
+		// 注意：我们通常不希望“攻击”打断“攻击”（起手防抖），所以排除 Attack
+		else if (Priority == CurrentPriority && Priority >= ESecActionPriority::HighAction)
+		{
+			bCanPlay = true;
+		}
+	}
+
+	// --- 没通过检查，直接拒绝 ---
+	if (!bCanPlay)
+	{
 		return;
 	}
-	
-	if (OpeningMontage)
-	{
-		ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
-		
-		if (CharacterOwner)
-		{
-			// 每次起手前，确保我们监听了动画系统
-			BindToAnimInstance();
 
-			// 虽然 StartCombo 通常是从无到有，但为了逻辑严谨也可以加上
-			// 比如强制打断某种状态时
-			UAnimMontage* OldMontage = CurrentActiveMontage;
-			CurrentActiveMontage = nullptr;
-			
-			float Duration = CharacterOwner->PlayAnimMontage(OpeningMontage);
-			
-			// 只有播放成功了才记录状态
-			
-			if (Duration > 0.f)
-			{
-				// 播放成功，更新为新的
-				CurrentActiveMontage = OpeningMontage;
-				// 起手式播放成功后，立即设置为初始状态
-				CurrentPhaseTag = FGameplayTag::EmptyTag;
-			}
-			else
-			{
-				// 【回滚】如果播放失败（比如死掉了），把状态还原回来（可选）
-				CurrentActiveMontage = OldMontage;
-			}
+	// --- 通过检查，开始执行 (逻辑复用之前的 StartCombo) ---
+	ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
+	if (CharacterOwner)
+	{
+		BindToAnimInstance();
+
+		// 置空策略 (防止回调自杀)
+		UAnimMontage* OldMontage = CurrentActiveMontage;
+		CurrentActiveMontage = nullptr;
+
+		float Duration = CharacterOwner->PlayAnimMontage(Montage);
+
+		if (Duration > 0.f)
+		{
+			CurrentActiveMontage = Montage;
+			CurrentPhaseTag = FGameplayTag::EmptyTag;
+			// 【关键】记录当前优先级
+			CurrentPriority = Priority; 
+		}
+		else
+		{
+			// 失败回滚
+			CurrentActiveMontage = OldMontage;
 		}
 	}
 }
-
 
 void USecComboComponent::SetComboPhase(FGameplayTag NewPhase)
 {
@@ -122,7 +143,13 @@ void USecComboComponent::TryExecuteCombo()
 				// 播放成功，立即更新为新状态
 				CurrentActiveMontage = NextMontage;
 				// 重置窗口，等待新蒙太奇的 ANS 触发新状态
-				CurrentPhaseTag = FGameplayTag::EmptyTag; 
+				CurrentPhaseTag = FGameplayTag::EmptyTag;
+
+				// 【新增补丁】连招衔接成功后，必须更新优先级！
+				// 因为 ComboActionData 里配的大多是普通攻击连招
+				// 所以这里通常要把优先级“降回”为 Attack。
+				// 否则从大招/技能接回普攻后，优先级会卡在高位，导致后续无法正常起手。
+				CurrentPriority = ESecActionPriority::Attack;
 			}
 			else
 			{
@@ -140,6 +167,9 @@ void USecComboComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted
 	{
 		CurrentActiveMontage = nullptr;
 		CurrentPhaseTag = FGameplayTag::EmptyTag;
+        
+		// 【关键】动作自然结束，优先级归零，允许后续任何动作进入
+		CurrentPriority = ESecActionPriority::None;
 	}
 }
 
