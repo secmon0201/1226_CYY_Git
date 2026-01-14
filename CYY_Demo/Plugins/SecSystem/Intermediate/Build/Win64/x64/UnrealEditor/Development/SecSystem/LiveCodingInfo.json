@@ -3,12 +3,12 @@
 	{
 		"Module.SecSystem.cpp.obj": [
 			"SecComboActionData.gen.cpp.obj",
+			"SecComboComponent.gen.cpp.obj",
 			"SecComboWindowANS.gen.cpp.obj",
+			"SecSystem.init.gen.cpp.obj",
 			"SecComboActionData.cpp.obj",
 			"SecComboWindowANS.cpp.obj",
 			"SecSystem.cpp.obj",
-			"SecComboComponent.gen.cpp.obj",
-			"SecSystem.init.gen.cpp.obj",
 			"SecComboComponent.cpp.obj"
 		]
 	}

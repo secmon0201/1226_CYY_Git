@@ -7,9 +7,9 @@
 			"SecComboWindowANS.gen.cpp.obj",
 			"SecSystem.init.gen.cpp.obj",
 			"SecComboActionData.cpp.obj",
+			"SecComboComponent.cpp.obj",
 			"SecComboWindowANS.cpp.obj",
-			"SecSystem.cpp.obj",
-			"SecComboComponent.cpp.obj"
+			"SecSystem.cpp.obj"
 		]
 	}
 }

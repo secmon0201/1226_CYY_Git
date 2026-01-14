@@ -4,5 +4,6 @@
 #include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Intermediate/Build/Win64/UnrealEditor/Inc/SecSystem/UHT/SecComboWindowANS.gen.cpp"
 #include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Intermediate/Build/Win64/UnrealEditor/Inc/SecSystem/UHT/SecSystem.init.gen.cpp"
 #include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Source/SecSystem/Private/SecComboActionData.cpp"
+#include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Source/SecSystem/Private/SecComboComponent.cpp"
 #include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Source/SecSystem/Private/SecComboWindowANS.cpp"
 #include "E:/Git/1226_CYY_Git/CYY_Demo/Plugins/SecSystem/Source/SecSystem/Private/SecSystem.cpp"

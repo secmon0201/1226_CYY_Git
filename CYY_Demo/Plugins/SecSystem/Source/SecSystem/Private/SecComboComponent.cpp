@@ -28,55 +28,69 @@ void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 {
 	if (!Montage) return;
 
-	// --- 优先级判断逻辑 ---
+	// --- 1. 优先级判断 ---
+	bool bCanPlay = false;
     
-	// 1. 如果当前没有动作 (None)，允许播放
-	bool bCanPlay = (CurrentActiveMontage == nullptr);
-
-	// 2. 如果有动作，对比优先级
-	if (!bCanPlay)
+	if (CurrentActiveMontage == nullptr)
 	{
-		// 规则 A：高优先级 必定打断 低优先级 (比如 大招 打断 攻击)
+		// 当前没动作，直接可以播
+		bCanPlay = true; 
+	}
+	else
+	{
+		// 当前有动作，进行优先级 PK
+		// 规则 A：高优先级 必定打断 低优先级
 		if (Priority > CurrentPriority)
 		{
 			bCanPlay = true;
 		}
-		// 规则 B：同级打断 (你提到的：闪避/技能/受击 可以互相覆盖)
-		// 注意：我们通常不希望“攻击”打断“攻击”（起手防抖），所以排除 Attack
+		// 规则 B：同级打断 (HighAction 可以互顶，比如闪避打断技能，技能打断受击)
+		// 排除 Attack (1级)，防止 Attack 打断 Attack (防抖/防连点)
 		else if (Priority == CurrentPriority && Priority >= ESecActionPriority::HighAction)
 		{
 			bCanPlay = true;
 		}
 	}
 
+	// --- 2. 结果执行 ---
+	if (!bCanPlay)
+	{
+		return; // 没打过，直接退出
+	}
+
+	
 	// --- 没通过检查，直接拒绝 ---
 	if (!bCanPlay)
 	{
 		return;
 	}
 
-	// --- 通过检查，开始执行 (逻辑复用之前的 StartCombo) ---
+	// --- 3. 播放逻辑 (含防自杀补丁) ---
 	ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
 	if (CharacterOwner)
 	{
 		BindToAnimInstance();
 
-		// 置空策略 (防止回调自杀)
-		UAnimMontage* OldMontage = CurrentActiveMontage;
-		CurrentActiveMontage = nullptr;
+		// 【关键修复步骤】
+		// 在播放新动画之前，先把 CurrentActiveMontage 设为 nullptr。
+		// 目的：如果 PlayAnimMontage 触发了旧动画的打断，OnMontageEnded 会立即执行。
+		// 此时 CurrentActiveMontage 已经是空了，OnMontageEnded 里的 if (Current == Montage) 就会失败。
+		// 这样就保护了我们的状态不被误清空。
+		UAnimMontage* OldMontage = CurrentActiveMontage; // 暂存旧的（万一播放失败要还原）
+		CurrentActiveMontage = nullptr; 
 
 		float Duration = CharacterOwner->PlayAnimMontage(Montage);
 
 		if (Duration > 0.f)
 		{
+			// 播放成功，正式上位
 			CurrentActiveMontage = Montage;
 			CurrentPhaseTag = FGameplayTag::EmptyTag;
-			// 【关键】记录当前优先级
 			CurrentPriority = Priority; 
 		}
 		else
 		{
-			// 失败回滚
+			// 播放失败（比如角色死亡无法播放），还原状态
 			CurrentActiveMontage = OldMontage;
 		}
 	}
@@ -98,63 +112,36 @@ void USecComboComponent::ClearComboPhase(FGameplayTag PhaseToEnd)
 
 void USecComboComponent::TryExecuteCombo()
 {
-	// 1. 基础检查：如果没有正在播放的动作，直接视为无法连招,或者执行起手逻辑
-	if (!CurrentActiveMontage)
-	{
-		// 这里可以处理 idle -> attack_1 的逻辑，或者依赖外部传入起手逻辑
-		// 简单示例：直接返回，等待外部调用 PlayAnimMontage 启动第一个动作
-		return; 
-	}
+	// 1. 基础检查
+	if (!CurrentActiveMontage) return; 
 
 	// 2. 资源检查
-	if (!ComboActionData)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("SecCombo: DataAsset missing!"));
-		return;
-	}
+	if (!ComboActionData) return;
 
-	// 3. 查表：这一步 CurrentActiveMontage 必须有值！
-	// 如果你在前摇期（Tag 不对或配置为空），这里会返回 nullptr
+	// 3. 查表
 	UAnimMontage* NextMontage = ComboActionData->GetNextMontage(CurrentActiveMontage, CurrentPhaseTag);
 
-	// 4. 只有查表成功（确认要切动画了），才进入执行流程
+	// 4. 执行
 	if (NextMontage)
 	{
 		ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
 		if (CharacterOwner)
 		{
-
-			// 防御性绑定 (防止连招过程中 AnimInstance 发生变化，虽然很少见)
 			BindToAnimInstance();
+            
+			// 【关键修复】：防止 Attack_A 打断 Attack_A 时，End回调清空变量
+			// 必须在 PlayAnimMontage 之前执行这一步
+			CurrentActiveMontage = nullptr; 
 
-			// 【关键策略】：查表已完成，NextMontage 已拿到。
-			// 现在把 CurrentActiveMontage 设为空。
-			// 作用：紧接着调用 PlayAnimMontage 会打断旧动画，触发 OnMontageEnded(Old)。
-			// OnMontageEnded 里的 if (Current == Old) 判断会失败（因为 Current 已经是 nullptr 了）。
-			// 从而防止旧动画的回调误删了我们的状态。即防止自杀。
-			CurrentActiveMontage = nullptr;
-			
-			// 5. 播放新动画
 			float Duration = CharacterOwner->PlayAnimMontage(NextMontage);
             
-			// 更新状态
 			if (Duration > 0.f)
 			{
-				// 播放成功，立即更新为新状态
 				CurrentActiveMontage = NextMontage;
-				// 重置窗口，等待新蒙太奇的 ANS 触发新状态
-				CurrentPhaseTag = FGameplayTag::EmptyTag;
+				CurrentPhaseTag = FGameplayTag::EmptyTag; 
 
-				// 【新增补丁】连招衔接成功后，必须更新优先级！
-				// 因为 ComboActionData 里配的大多是普通攻击连招
-				// 所以这里通常要把优先级“降回”为 Attack。
-				// 否则从大招/技能接回普攻后，优先级会卡在高位，导致后续无法正常起手。
+				// 连招成功，重置优先级为 Attack (防止从技能接回普攻后优先级卡死)
 				CurrentPriority = ESecActionPriority::Attack;
-			}
-			else
-			{
-				// 极罕见情况：播放失败（比如角色死了），可以考虑恢复状态或不做处理
-				// CurrentActiveMontage = nullptr; // 保持为空或恢复为上一个有效状态
 			}
 		}
 	}
@@ -162,15 +149,39 @@ void USecComboComponent::TryExecuteCombo()
 
 void USecComboComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
-	// 安全检查：只有当结束的蒙太奇是当前正在播放的才清除状态
-	if (CurrentActiveMontage == Montage)
+	// 1. 基础检查：指针必须对得上（处理 A -> B 的情况）
+	if (CurrentActiveMontage != Montage)
 	{
-		CurrentActiveMontage = nullptr;
-		CurrentPhaseTag = FGameplayTag::EmptyTag;
-        
-		// 【关键】动作自然结束，优先级归零，允许后续任何动作进入
-		CurrentPriority = ESecActionPriority::None;
+		return;
 	}
+
+	// 2. 核心修复：处理同名蒙太奇打断 (A -> A)
+	if (bInterrupted)
+	{
+		// 如果是被打断的，我们需要确认是不是“被自己打断并重启了”
+		ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
+		if (CharacterOwner && CharacterOwner->GetMesh())
+		{
+			UAnimInstance* AnimInst = CharacterOwner->GetMesh()->GetAnimInstance();
+            
+			// 【关键判断】
+			// 如果蒙太奇被打断了，但在动画实例中检测到它【仍然在播放】
+			// 这说明它被新的 PlayAnimMontage 指令“续命/重启”了。
+			// 此时状态是正确的，千万不要清空！
+			if (AnimInst && AnimInst->Montage_IsPlaying(Montage))
+			{
+				return; // 直接退出，保留状态
+			}
+		}
+	}
+
+	// 3. 只有在真正停止（自然结束 或 被外部停止）时，才清理状态
+	CurrentActiveMontage = nullptr;
+	CurrentPhaseTag = FGameplayTag::EmptyTag;
+    
+	// 只有自然结束才归零优先级；被打断通常意味着有新动作接管（StartAction里会更新优先级）
+	// 但如果是外部打断（如受伤），这里归零也是安全的。
+	CurrentPriority = ESecActionPriority::None;
 }
 
 void USecComboComponent::BindToAnimInstance()
