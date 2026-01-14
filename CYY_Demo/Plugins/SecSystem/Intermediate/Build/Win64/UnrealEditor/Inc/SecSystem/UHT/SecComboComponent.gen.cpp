@@ -30,7 +30,13 @@ struct Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xe7\x94\xb1\xe5\x8a\xa8\xe7\x94\xbb\xe7\xb3\xbb\xe7\xbb\x9f\xe8\xb0\x83\xe7\x94\xa8\xef\xbc\x9a\xe5\xbd\x93\xe8\xbf\x9e\xe5\x87\xbb\xe5\x8a\xa8\xe7\x94\xbb\xe7\xbb\x93\xe6\x9d\x9f\xe6\x97\xb6 */" },
+#endif
 		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xe7\x94\xb1\xe5\x8a\xa8\xe7\x94\xbb\xe7\xb3\xbb\xe7\xbb\x9f\xe8\xb0\x83\xe7\x94\xa8\xef\xbc\x9a\xe5\xbd\x93\xe8\xbf\x9e\xe5\x87\xbb\xe5\x8a\xa8\xe7\x94\xbb\xe7\xbb\x93\xe6\x9d\x9f\xe6\x97\xb6" },
+#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Montage;
@@ -219,7 +225,7 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_USecComboComponent_OnMontageEnded, "OnMontageEnded" }, // 3892878020
+		{ &Z_Construct_UFunction_USecComboComponent_OnMontageEnded, "OnMontageEnded" }, // 4245252288
 		{ &Z_Construct_UFunction_USecComboComponent_StartCombo, "StartCombo" }, // 2118660040
 		{ &Z_Construct_UFunction_USecComboComponent_TryExecuteCombo, "TryExecuteCombo" }, // 2988120846
 	};
@@ -278,10 +284,10 @@ USecComboComponent::~USecComboComponent() {}
 struct Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 1127837172U) },
+		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 2640375398U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_115396569(TEXT("/Script/SecSystem"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_3892944816(TEXT("/Script/SecSystem"),
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

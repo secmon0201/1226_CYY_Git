@@ -48,12 +48,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
 	void TryExecuteCombo();
 
+	/** 由动画系统调用：当连击动画结束时 */
 	UFUNCTION()
 	void OnMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 	
 protected:
 
-	// 辅助函数：绑定委托
+	// 辅助函数：绑定委托到动画实例
 	void BindToAnimInstance();
 	
 	// Called when the game starts

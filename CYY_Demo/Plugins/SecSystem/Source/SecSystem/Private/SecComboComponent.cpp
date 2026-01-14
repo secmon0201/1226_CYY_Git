@@ -19,7 +19,7 @@ void USecComboComponent::StartCombo(UAnimMontage* OpeningMontage)
 {
 	// [新增保护] 如果当前已经有活跃的蒙太奇，严禁重新 Start！
 	// 这能防止因蓝图逻辑漏洞导致的重复起手
-	if (CurrentActiveMontage != nullptr)
+	if (CurrentActiveMontage)
 	{
 		// 可选：你甚至可以在这里把逻辑转发给 TryExecuteCombo
 		// UE_LOG(LogTemp, Warning, TEXT("Combo already active, ignoring StartCombo."));
@@ -34,14 +34,27 @@ void USecComboComponent::StartCombo(UAnimMontage* OpeningMontage)
 		{
 			// 每次起手前，确保我们监听了动画系统
 			BindToAnimInstance();
+
+			// 虽然 StartCombo 通常是从无到有，但为了逻辑严谨也可以加上
+			// 比如强制打断某种状态时
+			UAnimMontage* OldMontage = CurrentActiveMontage;
+			CurrentActiveMontage = nullptr;
 			
 			float Duration = CharacterOwner->PlayAnimMontage(OpeningMontage);
+			
 			// 只有播放成功了才记录状态
 			
 			if (Duration > 0.f)
 			{
+				// 播放成功，更新为新的
 				CurrentActiveMontage = OpeningMontage;
+				// 起手式播放成功后，立即设置为初始状态
 				CurrentPhaseTag = FGameplayTag::EmptyTag;
+			}
+			else
+			{
+				// 【回滚】如果播放失败（比如死掉了），把状态还原回来（可选）
+				CurrentActiveMontage = OldMontage;
 			}
 		}
 	}
@@ -64,41 +77,57 @@ void USecComboComponent::ClearComboPhase(FGameplayTag PhaseToEnd)
 
 void USecComboComponent::TryExecuteCombo()
 {
-	// 1. 如果没有蒙太奇正在播放，视为起手 (逻辑可根据需求扩展)
+	// 1. 基础检查：如果没有正在播放的动作，直接视为无法连招,或者执行起手逻辑
 	if (!CurrentActiveMontage)
 	{
-		// 这里可以处理 idle -> attack_1 的逻辑，或者依赖外部传入起手
+		// 这里可以处理 idle -> attack_1 的逻辑，或者依赖外部传入起手逻辑
 		// 简单示例：直接返回，等待外部调用 PlayAnimMontage 启动第一个动作
 		return; 
 	}
 
-	// 2. 核心校验
+	// 2. 资源检查
 	if (!ComboActionData)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("SecCombo: DataAsset missing on Component!"));
+		UE_LOG(LogTemp, Warning, TEXT("SecCombo: DataAsset missing!"));
 		return;
 	}
 
-	// 3. 查表
+	// 3. 查表：这一步 CurrentActiveMontage 必须有值！
+	// 如果你在前摇期（Tag 不对或配置为空），这里会返回 nullptr
 	UAnimMontage* NextMontage = ComboActionData->GetNextMontage(CurrentActiveMontage, CurrentPhaseTag);
 
+	// 4. 只有查表成功（确认要切动画了），才进入执行流程
 	if (NextMontage)
 	{
 		ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
 		if (CharacterOwner)
 		{
 
-			// 确保监听 (防止连招过程中 AnimInstance 发生变化，虽然很少见)
+			// 防御性绑定 (防止连招过程中 AnimInstance 发生变化，虽然很少见)
 			BindToAnimInstance();
+
+			// 【关键策略】：查表已完成，NextMontage 已拿到。
+			// 现在把 CurrentActiveMontage 设为空。
+			// 作用：紧接着调用 PlayAnimMontage 会打断旧动画，触发 OnMontageEnded(Old)。
+			// OnMontageEnded 里的 if (Current == Old) 判断会失败（因为 Current 已经是 nullptr 了）。
+			// 从而防止旧动画的回调误删了我们的状态。即防止自杀。
+			CurrentActiveMontage = nullptr;
 			
-			// 4. 执行连招
+			// 5. 播放新动画
 			float Duration = CharacterOwner->PlayAnimMontage(NextMontage);
             
 			// 更新状态
 			if (Duration > 0.f)
 			{
+				// 播放成功，立即更新为新状态
 				CurrentActiveMontage = NextMontage;
-				CurrentPhaseTag = FGameplayTag::EmptyTag; // 重置窗口，等待新蒙太奇的 ANS
+				// 重置窗口，等待新蒙太奇的 ANS 触发新状态
+				CurrentPhaseTag = FGameplayTag::EmptyTag; 
+			}
+			else
+			{
+				// 极罕见情况：播放失败（比如角色死了），可以考虑恢复状态或不做处理
+				// CurrentActiveMontage = nullptr; // 保持为空或恢复为上一个有效状态
 			}
 		}
 	}
@@ -107,12 +136,6 @@ void USecComboComponent::TryExecuteCombo()
 void USecComboComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 {
 	// 安全检查：只有当结束的蒙太奇是当前正在播放的才清除状态
-	// 为什么？因为如果是从 A1 连招到 A2：
-	// 1. A2 开始播放，CurrentActiveMontage 更新为 A2。
-	// 2. A1 被打断 (Interrupted = true)。
-	// 3. 此函数触发 (Montage = A1)。
-	// 4. 此时 A1 != A2，我们不应该清除 A2。
-	// 只有当 A2 自然结束时，Montage == A2，我们才清除。
 	if (CurrentActiveMontage == Montage)
 	{
 		CurrentActiveMontage = nullptr;
@@ -128,10 +151,11 @@ void USecComboComponent::BindToAnimInstance()
 		{
 			if (UAnimInstance* AnimInst = Mesh->GetAnimInstance())
 			{
-				// 先移除以防重复绑定（虽然 AddDynamic 内部有去重，但为了保险）
-				AnimInst->OnMontageEnded.RemoveDynamic(this, &USecComboComponent::OnMontageEnded);
-				// 绑定我们的回调
-				AnimInst->OnMontageEnded.AddDynamic(this, &USecComboComponent::OnMontageEnded);
+				// 检查是否已经绑定，防止重复 Remove/Add
+				if (!AnimInst->OnMontageEnded.IsAlreadyBound(this, &USecComboComponent::OnMontageEnded))
+				{
+					AnimInst->OnMontageEnded.AddDynamic(this, &USecComboComponent::OnMontageEnded);
+				}
 			}
 		}
 	}
@@ -144,7 +168,8 @@ void USecComboComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
+	// 游戏开始时预先绑定一次，防止第一次攻击时因为某些原因没绑上
+	BindToAnimInstance();
 	
 }
 
@@ -154,6 +179,5 @@ void USecComboComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 }
 
