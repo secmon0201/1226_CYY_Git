@@ -19,8 +19,8 @@ enum class ESecActionPriority : uint8;
 #define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnMontageEnded); \
 	DECLARE_FUNCTION(execTryExecuteCombo); \
-	DECLARE_FUNCTION(execStartAction); \
-	DECLARE_FUNCTION(execStartCombo);
+	DECLARE_FUNCTION(execStartCombo); \
+	DECLARE_FUNCTION(execStartAction);
 
 
 #define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_INCLASS_NO_PURE_DECLS \

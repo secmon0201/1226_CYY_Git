@@ -39,6 +39,7 @@ void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 	else
 	{
 		// 当前有动作，进行优先级 PK
+		
 		// 规则 A：高优先级 必定打断 低优先级
 		if (Priority > CurrentPriority)
 		{
@@ -48,7 +49,15 @@ void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 		// 排除 Attack (1级)，防止 Attack 打断 Attack (防抖/防连点)
 		else if (Priority == CurrentPriority && Priority >= ESecActionPriority::HighAction)
 		{
-			bCanPlay = true;
+			// 只有当当前动作处于“允许打断的阶段”（如 Recovery）时，才允许同级打断。
+			// 这样可以保护 Windup/Active 阶段不被自己打断（实现无敌帧或硬直保护）。
+			if (InterruptiblePhases.HasTag(CurrentPhaseTag))
+			{
+				bCanPlay = true;
+			}
+			
+			// 如果你想保留“没有任何 Tag 时默认不可打断”或者“默认可打断”，可以在这里调整。
+			// 目前逻辑是：必须明确处于配置的 Phase (如 Recovery) 才能打断。
 		}
 	}
 

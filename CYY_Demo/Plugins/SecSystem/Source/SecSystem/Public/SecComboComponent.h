@@ -31,9 +31,22 @@ public:
 	// Sets default values for this component's properties
 	USecComboComponent();
 
+	/** * 通用的启动动作函数（带优先级）
+	 * 替代 StartCombo 用于非连招动作，或者由 StartCombo 内部调用
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SecCombo")
+	void StartAction(UAnimMontage* Montage, ESecActionPriority Priority);
+
 	/** 用于启动起手式 (Opener) */
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
 	void StartCombo(UAnimMontage* OpeningMontage);
+
+	/** * 允许同级打断的阶段标签列表。
+	 * 例如：如果包含 "Combo.Phase.Recovery"，那么当 CurrentPhaseTag 为 Recovery 时，
+	 * 允许同级的高优先级动作（如闪避接闪避）互相打断。
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "SecCombo|Config")
+	FGameplayTagContainer InterruptiblePhases;
 
 	/** 连击配置 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "SecCombo")
@@ -51,11 +64,7 @@ public:
 	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")
 	ESecActionPriority CurrentPriority = ESecActionPriority::None;
 
-	/** * 通用的启动动作函数（带优先级）
-	 * 替代 StartCombo 用于非连招动作，或者由 StartCombo 内部调用
-	 */
-	UFUNCTION(BlueprintCallable, Category = "SecCombo")
-	void StartAction(UAnimMontage* Montage, ESecActionPriority Priority);
+
 
 	// --- 接口 ---
 	/** 由 ANS 调用：设置当前窗口状态 */
