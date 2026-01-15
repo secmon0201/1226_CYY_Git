@@ -29,6 +29,7 @@ public class SecSystem : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "Slate",
+                "InputCore",
                 "SlateCore",
                 "GameplayTags",
 				// ... add other public dependencies that you statically link with here ...
