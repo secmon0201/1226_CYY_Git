@@ -14,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeSecComboComponent() {}
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 GAMEPLAYTAGS_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayTag();
+GAMEPLAYTAGS_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayTagContainer();
 SECSYSTEM_API UClass* Z_Construct_UClass_USecComboActionData_NoRegister();
 SECSYSTEM_API UClass* Z_Construct_UClass_USecComboComponent();
 SECSYSTEM_API UClass* Z_Construct_UClass_USecComboComponent_NoRegister();
@@ -315,6 +316,16 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 		{ "IncludePath", "SecComboComponent.h" },
 		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_InterruptiblePhases_MetaData[] = {
+		{ "Category", "SecCombo|Config" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** * \xe5\x85\x81\xe8\xae\xb8\xe5\x90\x8c\xe7\xba\xa7\xe6\x89\x93\xe6\x96\xad\xe7\x9a\x84\xe9\x98\xb6\xe6\xae\xb5\xe6\xa0\x87\xe7\xad\xbe\xe5\x88\x97\xe8\xa1\xa8\xe3\x80\x82\n\x09 * \xe4\xbe\x8b\xe5\xa6\x82\xef\xbc\x9a\xe5\xa6\x82\xe6\x9e\x9c\xe5\x8c\x85\xe5\x90\xab \"Combo.Phase.Recovery\"\xef\xbc\x8c\xe9\x82\xa3\xe4\xb9\x88\xe5\xbd\x93 CurrentPhaseTag \xe4\xb8\xba Recovery \xe6\x97\xb6\xef\xbc\x8c\n\x09 * \xe5\x85\x81\xe8\xae\xb8\xe5\x90\x8c\xe7\xba\xa7\xe7\x9a\x84\xe9\xab\x98\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x88\xe5\xa6\x82\xe9\x97\xaa\xe9\x81\xbf\xe6\x8e\xa5\xe9\x97\xaa\xe9\x81\xbf\xef\xbc\x89\xe4\xba\x92\xe7\x9b\xb8\xe6\x89\x93\xe6\x96\xad\xe3\x80\x82\n\x09 */" },
+#endif
+		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xe5\x85\x81\xe8\xae\xb8\xe5\x90\x8c\xe7\xba\xa7\xe6\x89\x93\xe6\x96\xad\xe7\x9a\x84\xe9\x98\xb6\xe6\xae\xb5\xe6\xa0\x87\xe7\xad\xbe\xe5\x88\x97\xe8\xa1\xa8\xe3\x80\x82\n\xe4\xbe\x8b\xe5\xa6\x82\xef\xbc\x9a\xe5\xa6\x82\xe6\x9e\x9c\xe5\x8c\x85\xe5\x90\xab \"Combo.Phase.Recovery\"\xef\xbc\x8c\xe9\x82\xa3\xe4\xb9\x88\xe5\xbd\x93 CurrentPhaseTag \xe4\xb8\xba Recovery \xe6\x97\xb6\xef\xbc\x8c\n\xe5\x85\x81\xe8\xae\xb8\xe5\x90\x8c\xe7\xba\xa7\xe7\x9a\x84\xe9\xab\x98\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x88\xe5\xa6\x82\xe9\x97\xaa\xe9\x81\xbf\xe6\x8e\xa5\xe9\x97\xaa\xe9\x81\xbf\xef\xbc\x89\xe4\xba\x92\xe7\x9b\xb8\xe6\x89\x93\xe6\x96\xad\xe3\x80\x82" },
+#endif
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ComboActionData_MetaData[] = {
 		{ "Category", "SecCombo" },
 #if !UE_BUILD_SHIPPING
@@ -356,6 +367,7 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 #endif
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_InterruptiblePhases;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ComboActionData;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_CurrentPhaseTag;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_CurrentActiveMontage;
@@ -375,12 +387,14 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_InterruptiblePhases = { "InterruptiblePhases", nullptr, (EPropertyFlags)0x0010000000010005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USecComboComponent, InterruptiblePhases), Z_Construct_UScriptStruct_FGameplayTagContainer, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_InterruptiblePhases_MetaData), NewProp_InterruptiblePhases_MetaData) }; // 3352185621
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_ComboActionData = { "ComboActionData", nullptr, (EPropertyFlags)0x0114000000010015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USecComboComponent, ComboActionData), Z_Construct_UClass_USecComboActionData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ComboActionData_MetaData), NewProp_ComboActionData_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentPhaseTag = { "CurrentPhaseTag", nullptr, (EPropertyFlags)0x0010000000002014, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USecComboComponent, CurrentPhaseTag), Z_Construct_UScriptStruct_FGameplayTag, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentPhaseTag_MetaData), NewProp_CurrentPhaseTag_MetaData) }; // 1298103297
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentActiveMontage = { "CurrentActiveMontage", nullptr, (EPropertyFlags)0x0114000000002014, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USecComboComponent, CurrentActiveMontage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentActiveMontage_MetaData), NewProp_CurrentActiveMontage_MetaData) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentPriority_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentPriority = { "CurrentPriority", nullptr, (EPropertyFlags)0x0010000000002014, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USecComboComponent, CurrentPriority), Z_Construct_UEnum_SecSystem_ESecActionPriority, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_CurrentPriority_MetaData), NewProp_CurrentPriority_MetaData) }; // 3961596953
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USecComboComponent_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USecComboComponent_Statics::NewProp_InterruptiblePhases,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USecComboComponent_Statics::NewProp_ComboActionData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentPhaseTag,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USecComboComponent_Statics::NewProp_CurrentActiveMontage,
@@ -431,10 +445,10 @@ struct Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Pub
 		{ ESecActionPriority_StaticEnum, TEXT("ESecActionPriority"), &Z_Registration_Info_UEnum_ESecActionPriority, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3961596953U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 2101620034U) },
+		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 1693407816U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_3927480483(TEXT("/Script/SecSystem"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_4197010823(TEXT("/Script/SecSystem"),
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo));
