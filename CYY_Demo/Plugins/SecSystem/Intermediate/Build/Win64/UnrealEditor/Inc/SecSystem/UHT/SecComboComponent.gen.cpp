@@ -11,6 +11,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSecComboComponent() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 ENGINE_API UClass* Z_Construct_UClass_UAnimMontage_NoRegister();
 GAMEPLAYTAGS_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayTag();
@@ -90,6 +91,55 @@ UEnum* Z_Construct_UEnum_SecSystem_ESecActionPriority()
 }
 // End Enum ESecActionPriority
 
+// Begin Class USecComboComponent Function ForceSetGroundVelocity
+struct Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics
+{
+	struct SecComboComponent_eventForceSetGroundVelocity_Parms
+	{
+		FVector NewVelocity;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "SecCombo|Movement" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** * \xe5\xbc\xba\xe5\x88\xb6\xe8\xae\xbe\xe7\xbd\xae\xe8\xa7\x92\xe8\x89\xb2\xe7\x9a\x84\xe5\x9c\xb0\xe9\x9d\xa2\xe9\x80\x9f\xe5\xba\xa6\xef\xbc\x88\xe4\xb8\x8d\xe6\x94\xb9\xe5\x8f\x98\xe7\xa7\xbb\xe5\x8a\xa8\xe6\xa8\xa1\xe5\xbc\x8f\xef\xbc\x8c\xe4\xb8\x8d\xe4\xbc\x9a\xe8\xa7\xa6\xe5\x8f\x91 Falling/Landed\xef\xbc\x89\n\x09 * \xe7\x94\xa8\xe4\xba\x8e\xe8\xa7\xa3\xe5\x86\xb3\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\xe8\xa1\x94\xe6\x8e\xa5\xe6\x97\xb6\xe7\x9a\x84\xe5\x8a\xa8\xe9\x87\x8f\xe8\xa1\xa5\xe5\x81\xbf\xe9\x97\xae\xe9\xa2\x98\n\x09 */" },
+#endif
+		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xe5\xbc\xba\xe5\x88\xb6\xe8\xae\xbe\xe7\xbd\xae\xe8\xa7\x92\xe8\x89\xb2\xe7\x9a\x84\xe5\x9c\xb0\xe9\x9d\xa2\xe9\x80\x9f\xe5\xba\xa6\xef\xbc\x88\xe4\xb8\x8d\xe6\x94\xb9\xe5\x8f\x98\xe7\xa7\xbb\xe5\x8a\xa8\xe6\xa8\xa1\xe5\xbc\x8f\xef\xbc\x8c\xe4\xb8\x8d\xe4\xbc\x9a\xe8\xa7\xa6\xe5\x8f\x91 Falling/Landed\xef\xbc\x89\n\xe7\x94\xa8\xe4\xba\x8e\xe8\xa7\xa3\xe5\x86\xb3\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\xe8\xa1\x94\xe6\x8e\xa5\xe6\x97\xb6\xe7\x9a\x84\xe5\x8a\xa8\xe9\x87\x8f\xe8\xa1\xa5\xe5\x81\xbf\xe9\x97\xae\xe9\xa2\x98" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_NewVelocity;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::NewProp_NewVelocity = { "NewVelocity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventForceSetGroundVelocity_Parms, NewVelocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::NewProp_NewVelocity,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USecComboComponent, nullptr, "ForceSetGroundVelocity", nullptr, nullptr, Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::PropPointers), sizeof(Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::SecComboComponent_eventForceSetGroundVelocity_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04820401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::Function_MetaDataParams), Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::SecComboComponent_eventForceSetGroundVelocity_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(USecComboComponent::execForceSetGroundVelocity)
+{
+	P_GET_STRUCT(FVector,Z_Param_NewVelocity);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->ForceSetGroundVelocity(Z_Param_NewVelocity);
+	P_NATIVE_END;
+}
+// End Class USecComboComponent Function ForceSetGroundVelocity
+
 // Begin Class USecComboComponent Function OnMontageEnded
 struct Z_Construct_UFunction_USecComboComponent_OnMontageEnded_Statics
 {
@@ -155,32 +205,41 @@ struct Z_Construct_UFunction_USecComboComponent_StartAction_Statics
 	{
 		UAnimMontage* Montage;
 		ESecActionPriority Priority;
+		bool ReturnValue;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "SecCombo" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/** * \xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\x09 * \xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8\n\x09 */" },
+		{ "Comment", "/** * \xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\x09 * \xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8\n\x09 * @return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5\n\x09 */" },
 #endif
 		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8" },
+		{ "ToolTip", "\xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8\n@return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5" },
 #endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Montage;
 	static const UECodeGen_Private::FBytePropertyParams NewProp_Priority_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp_Priority;
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Montage = { "Montage", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventStartAction_Parms, Montage), Z_Construct_UClass_UAnimMontage_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Priority_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Priority = { "Priority", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventStartAction_Parms, Priority), Z_Construct_UEnum_SecSystem_ESecActionPriority, METADATA_PARAMS(0, nullptr) }; // 3961596953
+void Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((SecComboComponent_eventStartAction_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(SecComboComponent_eventStartAction_Parms), &Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USecComboComponent_StartAction_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Montage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Priority_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_Priority,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_StartAction_Statics::NewProp_ReturnValue,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_StartAction_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USecComboComponent_StartAction_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USecComboComponent, nullptr, "StartAction", nullptr, nullptr, Z_Construct_UFunction_USecComboComponent_StartAction_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_StartAction_Statics::PropPointers), sizeof(Z_Construct_UFunction_USecComboComponent_StartAction_Statics::SecComboComponent_eventStartAction_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_StartAction_Statics::Function_MetaDataParams), Z_Construct_UFunction_USecComboComponent_StartAction_Statics::Function_MetaDataParams) };
@@ -200,7 +259,7 @@ DEFINE_FUNCTION(USecComboComponent::execStartAction)
 	P_GET_ENUM(ESecActionPriority,Z_Param_Priority);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->StartAction(Z_Param_Montage,ESecActionPriority(Z_Param_Priority));
+	*(bool*)Z_Param__Result=P_THIS->StartAction(Z_Param_Montage,ESecActionPriority(Z_Param_Priority));
 	P_NATIVE_END;
 }
 // End Class USecComboComponent Function StartAction
@@ -295,6 +354,7 @@ void USecComboComponent::StaticRegisterNativesUSecComboComponent()
 {
 	UClass* Class = USecComboComponent::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "ForceSetGroundVelocity", &USecComboComponent::execForceSetGroundVelocity },
 		{ "OnMontageEnded", &USecComboComponent::execOnMontageEnded },
 		{ "StartAction", &USecComboComponent::execStartAction },
 		{ "StartCombo", &USecComboComponent::execStartCombo },
@@ -376,8 +436,9 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity, "ForceSetGroundVelocity" }, // 1451240597
 		{ &Z_Construct_UFunction_USecComboComponent_OnMontageEnded, "OnMontageEnded" }, // 4245252288
-		{ &Z_Construct_UFunction_USecComboComponent_StartAction, "StartAction" }, // 2177171093
+		{ &Z_Construct_UFunction_USecComboComponent_StartAction, "StartAction" }, // 791639467
 		{ &Z_Construct_UFunction_USecComboComponent_StartCombo, "StartCombo" }, // 2118660040
 		{ &Z_Construct_UFunction_USecComboComponent_TryExecuteCombo, "TryExecuteCombo" }, // 2988120846
 	};
@@ -445,10 +506,10 @@ struct Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Pub
 		{ ESecActionPriority_StaticEnum, TEXT("ESecActionPriority"), &Z_Registration_Info_UEnum_ESecActionPriority, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3961596953U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 1693407816U) },
+		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 3140488394U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_4197010823(TEXT("/Script/SecSystem"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_3319007923(TEXT("/Script/SecSystem"),
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo));

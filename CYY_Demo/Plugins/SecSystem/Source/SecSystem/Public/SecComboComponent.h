@@ -33,9 +33,10 @@ public:
 
 	/** * 通用的启动动作函数（带优先级）
 	 * 替代 StartCombo 用于非连招动作，或者由 StartCombo 内部调用
+	 * @return true: 播放成功; false: 被优先级拦截或播放失败
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
-	void StartAction(UAnimMontage* Montage, ESecActionPriority Priority);
+	bool StartAction(UAnimMontage* Montage, ESecActionPriority Priority);
 
 	/** 用于启动起手式 (Opener) */
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
@@ -80,6 +81,15 @@ public:
 	/** 由动画系统调用：当连击动画结束时 */
 	UFUNCTION()
 	void OnMontageEnded(UAnimMontage* Montage, bool bInterrupted);
+
+
+
+	
+	/** * 强制设置角色的地面速度（不改变移动模式，不会触发 Falling/Landed）
+	 * 用于解决蒙太奇衔接时的动量补偿问题
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SecCombo|Movement")
+	void ForceSetGroundVelocity(FVector NewVelocity);
 	
 protected:
 

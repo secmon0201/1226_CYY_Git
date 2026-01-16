@@ -17,6 +17,7 @@ enum class ESecActionPriority : uint8;
 #define SECSYSTEM_SecComboComponent_generated_h
 
 #define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execForceSetGroundVelocity); \
 	DECLARE_FUNCTION(execOnMontageEnded); \
 	DECLARE_FUNCTION(execTryExecuteCombo); \
 	DECLARE_FUNCTION(execStartCombo); \

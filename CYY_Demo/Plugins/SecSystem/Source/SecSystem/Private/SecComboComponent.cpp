@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimInstance.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values for this component's properties
 USecComboComponent::USecComboComponent()
@@ -24,9 +25,10 @@ void USecComboComponent::StartCombo(UAnimMontage* OpeningMontage)
 }
 
 
-void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority Priority)
+bool USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority Priority)
 {
-	if (!Montage) return;
+	// 失败：蒙太奇为空
+	if (!Montage) return false;
 
 	// --- 1. 优先级判断 ---
 	bool bCanPlay = false;
@@ -64,14 +66,7 @@ void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 	// --- 2. 结果执行 ---
 	if (!bCanPlay)
 	{
-		return; // 没打过，直接退出
-	}
-
-	
-	// --- 没通过检查，直接拒绝 ---
-	if (!bCanPlay)
-	{
-		return;
+		return false; // 失败：优先级不足，被拦截
 	}
 
 	// --- 3. 播放逻辑 (含防自杀补丁) ---
@@ -95,14 +90,17 @@ void USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 			// 播放成功，正式上位
 			CurrentActiveMontage = Montage;
 			CurrentPhaseTag = FGameplayTag::EmptyTag;
-			CurrentPriority = Priority; 
+			CurrentPriority = Priority;
+			return true; // 成功：蒙太奇已开始播放
 		}
 		else
 		{
 			// 播放失败（比如角色死亡无法播放），还原状态
 			CurrentActiveMontage = OldMontage;
+			return false; // 失败：引擎拒绝播放
 		}
 	}
+	return false; // 失败：没有 CharacterOwner
 }
 
 void USecComboComponent::SetComboPhase(FGameplayTag NewPhase)
@@ -191,6 +189,29 @@ void USecComboComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted
 	// 只有自然结束才归零优先级；被打断通常意味着有新动作接管（StartAction里会更新优先级）
 	// 但如果是外部打断（如受伤），这里归零也是安全的。
 	CurrentPriority = ESecActionPriority::None;
+}
+
+void USecComboComponent::ForceSetGroundVelocity(FVector NewVelocity)
+{
+	ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
+	if (CharacterOwner)
+	{
+		if (UCharacterMovementComponent* MoveComp = CharacterOwner->GetCharacterMovement())
+		{
+			// 1. 获取当前的 Z 轴速度 (保留跌落/重力影响)
+			float CurrentZ = MoveComp->Velocity.Z;
+
+			// 2. 覆盖水平速度 (X, Y)，重组向量
+			FVector FinalVelocity = FVector(NewVelocity.X, NewVelocity.Y, CurrentZ);
+
+			// 3. 强制赋值
+			MoveComp->Velocity = FinalVelocity;
+            
+			// 4. 关键：通知组件更新，确保下一帧生效
+			MoveComp->UpdateComponentVelocity();
+		}
+	}
+	
 }
 
 void USecComboComponent::BindToAnimInstance()
