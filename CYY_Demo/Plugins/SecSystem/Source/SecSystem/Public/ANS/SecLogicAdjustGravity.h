@@ -35,6 +35,7 @@ private:
 	float OriginalGravity;
 
 public:
-	virtual void OnStart(USecComboComponent* ComboComp, float TotalDuration) override;
-	virtual void OnEnd(USecComboComponent* ComboComp) override;
+	// 【关键修改点】：重写 Implementation 版本，而不是原函数
+	virtual void OnStart_Implementation(USecComboComponent* ComboComp, float TotalDuration) override;
+	virtual void OnEnd_Implementation(USecComboComponent* ComboComp) override;
 };

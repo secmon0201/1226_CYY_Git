@@ -16,15 +16,16 @@ enum class ESecActionPriority : uint8;
 #endif
 #define SECSYSTEM_SecComboComponent_generated_h
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execForceSetGroundVelocity); \
 	DECLARE_FUNCTION(execOnMontageEnded); \
 	DECLARE_FUNCTION(execTryExecuteCombo); \
+	DECLARE_FUNCTION(execExitMontageWithMomentum); \
 	DECLARE_FUNCTION(execStartCombo); \
 	DECLARE_FUNCTION(execStartAction);
 
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_INCLASS_NO_PURE_DECLS \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSecComboComponent(); \
 	friend struct Z_Construct_UClass_USecComboComponent_Statics; \
@@ -33,7 +34,7 @@ public: \
 	DECLARE_SERIALIZER(USecComboComponent)
 
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_ENHANCED_CONSTRUCTORS \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	USecComboComponent(USecComboComponent&&); \
@@ -45,13 +46,13 @@ public: \
 	NO_API virtual ~USecComboComponent();
 
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_25_PROLOG
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_GENERATED_BODY \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_26_PROLOG
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_INCLASS_NO_PURE_DECLS \
-	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_28_ENHANCED_CONSTRUCTORS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_INCLASS_NO_PURE_DECLS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_29_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

@@ -4,17 +4,17 @@
 		"Module.SecSystem.cpp.obj": [
 			"SecComboActionData.gen.cpp.obj",
 			"SecComboWindowANS.gen.cpp.obj",
+			"SecModularANS.gen.cpp.obj",
+			"SecModularANS.cpp.obj",
 			"SecComboActionData.cpp.obj",
 			"SecComboWindowANS.cpp.obj",
 			"SecSystem.cpp.obj",
 			"SecComboComponent.gen.cpp.obj",
 			"SecComboLogicBase.gen.cpp.obj",
 			"SecLogicAdjustGravity.gen.cpp.obj",
-			"SecModularANS.gen.cpp.obj",
 			"SecSystem.init.gen.cpp.obj",
 			"SecComboLogicBase.cpp.obj",
 			"SecLogicAdjustGravity.cpp.obj",
-			"SecModularANS.cpp.obj",
 			"SecComboComponent.cpp.obj"
 		]
 	}

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameplayTagContainer.h"
 #include "Components/ActorComponent.h"
+#include "Animation/AnimInstance.h" // 确保能访问 ERootMotionMode
 #include "SecComboComponent.generated.h"
 
 
@@ -32,7 +33,8 @@ public:
 	USecComboComponent();
 
 	/** * 通用的启动动作函数（带优先级）
-	 * 替代 StartCombo 用于非连招动作，或者由 StartCombo 内部调用
+	 * @param Montage 目标蒙太奇
+	 * @param Priority 优先级
 	 * @return true: 播放成功; false: 被优先级拦截或播放失败
 	 */
 	UFUNCTION(BlueprintCallable, Category = "SecCombo")
@@ -65,8 +67,15 @@ public:
 	UPROPERTY(Transient, BlueprintReadOnly, Category = "SecCombo|State")
 	ESecActionPriority CurrentPriority = ESecActionPriority::None;
 
-
-
+	/** * [通用核心] 带动量的蒙太奇安全退出函数
+	 * 回退：去掉了 bIgnoreRootMotion 参数。
+	 * 现在它只负责：注入物理速度 -> 停止蒙太奇 -> 清理状态。
+	 * 虽然 BlendOut 期间可能会有轻微减速，但绝对安全，不会飞出去。
+	 */
+	UFUNCTION(BlueprintCallable, Category = "SecCombo|Flow")
+	void ExitMontageWithMomentum(float BlendOutTime, FVector TargetVelocity, bool bOverrideZ = false,
+		bool bClearComboState = true);
+	
 	// --- 接口 ---
 	/** 由 ANS 调用：设置当前窗口状态 */
 	void SetComboPhase(FGameplayTag NewPhase);
@@ -83,7 +92,11 @@ public:
 	void OnMontageEnded(UAnimMontage* Montage, bool bInterrupted);
 
 
+	/** 计时器句柄，用于在蒙太奇混出结束后自动恢复根运动 */
+	FTimerHandle TimerHandle_RestoreRootMotion;
 
+	/** 临时保存的根运动模式，用于恢复 */
+	TEnumAsByte<ERootMotionMode::Type> SavedRootMotionMode;
 	
 	/** * 强制设置角色的地面速度（不改变移动模式，不会触发 Falling/Landed）
 	 * 用于解决蒙太奇衔接时的动量补偿问题
