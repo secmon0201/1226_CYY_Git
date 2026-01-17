@@ -32,7 +32,7 @@ bool USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 
 	// --- 1. 优先级判断 ---
 	bool bCanPlay = false;
-    
+	
 	if (CurrentActiveMontage == nullptr)
 	{
 		// 当前没动作，直接可以播
@@ -41,7 +41,6 @@ bool USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 	else
 	{
 		// 当前有动作，进行优先级 PK
-		
 		// 规则 A：高优先级 必定打断 低优先级
 		if (Priority > CurrentPriority)
 		{
@@ -101,6 +100,57 @@ bool USecComboComponent::StartAction(UAnimMontage* Montage, ESecActionPriority P
 		}
 	}
 	return false; // 失败：没有 CharacterOwner
+}
+
+
+void USecComboComponent::ExitMontageWithMomentum(float BlendOutTime, FVector TargetVelocity, bool bOverrideZ,
+	bool bClearComboState)
+{
+	ACharacter* CharacterOwner = Cast<ACharacter>(GetOwner());
+	if (!CharacterOwner) return;
+
+	// --- 1. 动画处理 ---
+	if (USkeletalMeshComponent* Mesh = CharacterOwner->GetMesh())
+	{
+		if (UAnimInstance* AnimInst = Mesh->GetAnimInstance())
+		{
+			// [已移除] SetRootMotionMode(Ignore)
+			// [已移除] Timer SetTimer
+
+			// 只是单纯的停止蒙太奇
+			if (CurrentActiveMontage && AnimInst->Montage_IsPlaying(CurrentActiveMontage))
+			{
+				AnimInst->Montage_Stop(BlendOutTime, CurrentActiveMontage);
+			}
+			else
+			{
+				AnimInst->Montage_Stop(BlendOutTime, nullptr);
+			}
+		}
+	}
+
+	// --- 2. 物理处理 ---
+	// 依然保留速度注入，这对于手感很重要，只要没有 IgnoreRootMotion，它就是安全的
+	if (UCharacterMovementComponent* MoveComp = CharacterOwner->GetCharacterMovement())
+	{
+		FVector FinalVelocity = TargetVelocity;
+
+		if (!bOverrideZ)
+		{
+			FinalVelocity.Z = MoveComp->Velocity.Z;
+		}
+
+		MoveComp->Velocity = FinalVelocity;
+		MoveComp->UpdateComponentVelocity();
+	}
+
+	// --- 3. 状态清理 ---
+	if (bClearComboState)
+	{
+		CurrentActiveMontage = nullptr;
+		CurrentPhaseTag = FGameplayTag::EmptyTag;
+		CurrentPriority = ESecActionPriority::None;
+	}
 }
 
 void USecComboComponent::SetComboPhase(FGameplayTag NewPhase)
@@ -190,6 +240,8 @@ void USecComboComponent::OnMontageEnded(UAnimMontage* Montage, bool bInterrupted
 	// 但如果是外部打断（如受伤），这里归零也是安全的。
 	CurrentPriority = ESecActionPriority::None;
 }
+
+
 
 void USecComboComponent::ForceSetGroundVelocity(FVector NewVelocity)
 {

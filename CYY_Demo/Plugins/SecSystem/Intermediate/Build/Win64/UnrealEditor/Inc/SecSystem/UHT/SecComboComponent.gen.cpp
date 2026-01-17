@@ -91,6 +91,82 @@ UEnum* Z_Construct_UEnum_SecSystem_ESecActionPriority()
 }
 // End Enum ESecActionPriority
 
+// Begin Class USecComboComponent Function ExitMontageWithMomentum
+struct Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics
+{
+	struct SecComboComponent_eventExitMontageWithMomentum_Parms
+	{
+		float BlendOutTime;
+		FVector TargetVelocity;
+		bool bOverrideZ;
+		bool bClearComboState;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "SecCombo|Flow" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** * [\xe9\x80\x9a\xe7\x94\xa8\xe6\xa0\xb8\xe5\xbf\x83] \xe5\xb8\xa6\xe5\x8a\xa8\xe9\x87\x8f\xe7\x9a\x84\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\xe5\xae\x89\xe5\x85\xa8\xe9\x80\x80\xe5\x87\xba\xe5\x87\xbd\xe6\x95\xb0\n\x09 * \xe5\x9b\x9e\xe9\x80\x80\xef\xbc\x9a\xe5\x8e\xbb\xe6\x8e\x89\xe4\xba\x86 bIgnoreRootMotion \xe5\x8f\x82\xe6\x95\xb0\xe3\x80\x82\n\x09 * \xe7\x8e\xb0\xe5\x9c\xa8\xe5\xae\x83\xe5\x8f\xaa\xe8\xb4\x9f\xe8\xb4\xa3\xef\xbc\x9a\xe6\xb3\xa8\xe5\x85\xa5\xe7\x89\xa9\xe7\x90\x86\xe9\x80\x9f\xe5\xba\xa6 -> \xe5\x81\x9c\xe6\xad\xa2\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87 -> \xe6\xb8\x85\xe7\x90\x86\xe7\x8a\xb6\xe6\x80\x81\xe3\x80\x82\n\x09 * \xe8\x99\xbd\xe7\x84\xb6 BlendOut \xe6\x9c\x9f\xe9\x97\xb4\xe5\x8f\xaf\xe8\x83\xbd\xe4\xbc\x9a\xe6\x9c\x89\xe8\xbd\xbb\xe5\xbe\xae\xe5\x87\x8f\xe9\x80\x9f\xef\xbc\x8c\xe4\xbd\x86\xe7\xbb\x9d\xe5\xaf\xb9\xe5\xae\x89\xe5\x85\xa8\xef\xbc\x8c\xe4\xb8\x8d\xe4\xbc\x9a\xe9\xa3\x9e\xe5\x87\xba\xe5\x8e\xbb\xe3\x80\x82\n\x09 */" },
+#endif
+		{ "CPP_Default_bClearComboState", "true" },
+		{ "CPP_Default_bOverrideZ", "false" },
+		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "[\xe9\x80\x9a\xe7\x94\xa8\xe6\xa0\xb8\xe5\xbf\x83] \xe5\xb8\xa6\xe5\x8a\xa8\xe9\x87\x8f\xe7\x9a\x84\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\xe5\xae\x89\xe5\x85\xa8\xe9\x80\x80\xe5\x87\xba\xe5\x87\xbd\xe6\x95\xb0\n\xe5\x9b\x9e\xe9\x80\x80\xef\xbc\x9a\xe5\x8e\xbb\xe6\x8e\x89\xe4\xba\x86 bIgnoreRootMotion \xe5\x8f\x82\xe6\x95\xb0\xe3\x80\x82\n\xe7\x8e\xb0\xe5\x9c\xa8\xe5\xae\x83\xe5\x8f\xaa\xe8\xb4\x9f\xe8\xb4\xa3\xef\xbc\x9a\xe6\xb3\xa8\xe5\x85\xa5\xe7\x89\xa9\xe7\x90\x86\xe9\x80\x9f\xe5\xba\xa6 -> \xe5\x81\x9c\xe6\xad\xa2\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87 -> \xe6\xb8\x85\xe7\x90\x86\xe7\x8a\xb6\xe6\x80\x81\xe3\x80\x82\n\xe8\x99\xbd\xe7\x84\xb6 BlendOut \xe6\x9c\x9f\xe9\x97\xb4\xe5\x8f\xaf\xe8\x83\xbd\xe4\xbc\x9a\xe6\x9c\x89\xe8\xbd\xbb\xe5\xbe\xae\xe5\x87\x8f\xe9\x80\x9f\xef\xbc\x8c\xe4\xbd\x86\xe7\xbb\x9d\xe5\xaf\xb9\xe5\xae\x89\xe5\x85\xa8\xef\xbc\x8c\xe4\xb8\x8d\xe4\xbc\x9a\xe9\xa3\x9e\xe5\x87\xba\xe5\x8e\xbb\xe3\x80\x82" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_BlendOutTime;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetVelocity;
+	static void NewProp_bOverrideZ_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bOverrideZ;
+	static void NewProp_bClearComboState_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_bClearComboState;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_BlendOutTime = { "BlendOutTime", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventExitMontageWithMomentum_Parms, BlendOutTime), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_TargetVelocity = { "TargetVelocity", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(SecComboComponent_eventExitMontageWithMomentum_Parms, TargetVelocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bOverrideZ_SetBit(void* Obj)
+{
+	((SecComboComponent_eventExitMontageWithMomentum_Parms*)Obj)->bOverrideZ = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bOverrideZ = { "bOverrideZ", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(SecComboComponent_eventExitMontageWithMomentum_Parms), &Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bOverrideZ_SetBit, METADATA_PARAMS(0, nullptr) };
+void Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bClearComboState_SetBit(void* Obj)
+{
+	((SecComboComponent_eventExitMontageWithMomentum_Parms*)Obj)->bClearComboState = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bClearComboState = { "bClearComboState", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(SecComboComponent_eventExitMontageWithMomentum_Parms), &Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bClearComboState_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_BlendOutTime,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_TargetVelocity,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bOverrideZ,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::NewProp_bClearComboState,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_USecComboComponent, nullptr, "ExitMontageWithMomentum", nullptr, nullptr, Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::PropPointers), sizeof(Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::SecComboComponent_eventExitMontageWithMomentum_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04820401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::Function_MetaDataParams), Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::SecComboComponent_eventExitMontageWithMomentum_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(USecComboComponent::execExitMontageWithMomentum)
+{
+	P_GET_PROPERTY(FFloatProperty,Z_Param_BlendOutTime);
+	P_GET_STRUCT(FVector,Z_Param_TargetVelocity);
+	P_GET_UBOOL(Z_Param_bOverrideZ);
+	P_GET_UBOOL(Z_Param_bClearComboState);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->ExitMontageWithMomentum(Z_Param_BlendOutTime,Z_Param_TargetVelocity,Z_Param_bOverrideZ,Z_Param_bClearComboState);
+	P_NATIVE_END;
+}
+// End Class USecComboComponent Function ExitMontageWithMomentum
+
 // Begin Class USecComboComponent Function ForceSetGroundVelocity
 struct Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity_Statics
 {
@@ -211,11 +287,11 @@ struct Z_Construct_UFunction_USecComboComponent_StartAction_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "SecCombo" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/** * \xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\x09 * \xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8\n\x09 * @return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5\n\x09 */" },
+		{ "Comment", "/** * \xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\x09 * @param Montage \xe7\x9b\xae\xe6\xa0\x87\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\n\x09 * @param Priority \xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\n\x09 * @return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5\n\x09 */" },
 #endif
 		{ "ModuleRelativePath", "Public/SecComboComponent.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n\xe6\x9b\xbf\xe4\xbb\xa3 StartCombo \xe7\x94\xa8\xe4\xba\x8e\xe9\x9d\x9e\xe8\xbf\x9e\xe6\x8b\x9b\xe5\x8a\xa8\xe4\xbd\x9c\xef\xbc\x8c\xe6\x88\x96\xe8\x80\x85\xe7\x94\xb1 StartCombo \xe5\x86\x85\xe9\x83\xa8\xe8\xb0\x83\xe7\x94\xa8\n@return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5" },
+		{ "ToolTip", "\xe9\x80\x9a\xe7\x94\xa8\xe7\x9a\x84\xe5\x90\xaf\xe5\x8a\xa8\xe5\x8a\xa8\xe4\xbd\x9c\xe5\x87\xbd\xe6\x95\xb0\xef\xbc\x88\xe5\xb8\xa6\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xef\xbc\x89\n@param Montage \xe7\x9b\xae\xe6\xa0\x87\xe8\x92\x99\xe5\xa4\xaa\xe5\xa5\x87\n@param Priority \xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\n@return true: \xe6\x92\xad\xe6\x94\xbe\xe6\x88\x90\xe5\x8a\x9f; false: \xe8\xa2\xab\xe4\xbc\x98\xe5\x85\x88\xe7\xba\xa7\xe6\x8b\xa6\xe6\x88\xaa\xe6\x88\x96\xe6\x92\xad\xe6\x94\xbe\xe5\xa4\xb1\xe8\xb4\xa5" },
 #endif
 	};
 #endif // WITH_METADATA
@@ -354,6 +430,7 @@ void USecComboComponent::StaticRegisterNativesUSecComboComponent()
 {
 	UClass* Class = USecComboComponent::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "ExitMontageWithMomentum", &USecComboComponent::execExitMontageWithMomentum },
 		{ "ForceSetGroundVelocity", &USecComboComponent::execForceSetGroundVelocity },
 		{ "OnMontageEnded", &USecComboComponent::execOnMontageEnded },
 		{ "StartAction", &USecComboComponent::execStartAction },
@@ -436,9 +513,10 @@ struct Z_Construct_UClass_USecComboComponent_Statics
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_USecComboComponent_ExitMontageWithMomentum, "ExitMontageWithMomentum" }, // 1721052552
 		{ &Z_Construct_UFunction_USecComboComponent_ForceSetGroundVelocity, "ForceSetGroundVelocity" }, // 1451240597
 		{ &Z_Construct_UFunction_USecComboComponent_OnMontageEnded, "OnMontageEnded" }, // 4245252288
-		{ &Z_Construct_UFunction_USecComboComponent_StartAction, "StartAction" }, // 791639467
+		{ &Z_Construct_UFunction_USecComboComponent_StartAction, "StartAction" }, // 1359233584
 		{ &Z_Construct_UFunction_USecComboComponent_StartCombo, "StartCombo" }, // 2118660040
 		{ &Z_Construct_UFunction_USecComboComponent_TryExecuteCombo, "TryExecuteCombo" }, // 2988120846
 	};
@@ -506,10 +584,10 @@ struct Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Pub
 		{ ESecActionPriority_StaticEnum, TEXT("ESecActionPriority"), &Z_Registration_Info_UEnum_ESecActionPriority, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3961596953U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 3140488394U) },
+		{ Z_Construct_UClass_USecComboComponent, USecComboComponent::StaticClass, TEXT("USecComboComponent"), &Z_Registration_Info_UClass_USecComboComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USecComboComponent), 2383016479U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_3319007923(TEXT("/Script/SecSystem"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_2659788353(TEXT("/Script/SecSystem"),
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_SecComboComponent_h_Statics::EnumInfo));

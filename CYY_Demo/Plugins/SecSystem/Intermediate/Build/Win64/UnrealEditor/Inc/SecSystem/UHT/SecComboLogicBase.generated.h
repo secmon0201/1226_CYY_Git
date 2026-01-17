@@ -9,12 +9,22 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class ACharacter;
+class USecComboComponent;
 #ifdef SECSYSTEM_SecComboLogicBase_generated_h
 #error "SecComboLogicBase.generated.h already included, missing '#pragma once' in SecComboLogicBase.h"
 #endif
 #define SECSYSTEM_SecComboLogicBase_generated_h
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_17_INCLASS_NO_PURE_DECLS \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetCharacter); \
+	DECLARE_FUNCTION(execOnEnd); \
+	DECLARE_FUNCTION(execOnTick); \
+	DECLARE_FUNCTION(execOnStart);
+
+
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_CALLBACK_WRAPPERS
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUSecComboLogicBase(); \
 	friend struct Z_Construct_UClass_USecComboLogicBase_Statics; \
@@ -23,7 +33,7 @@ public: \
 	DECLARE_SERIALIZER(USecComboLogicBase)
 
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_17_ENHANCED_CONSTRUCTORS \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API USecComboLogicBase(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 private: \
@@ -37,12 +47,14 @@ public: \
 	NO_API virtual ~USecComboLogicBase();
 
 
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_14_PROLOG
-#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_17_GENERATED_BODY \
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_15_PROLOG
+#define FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_17_INCLASS_NO_PURE_DECLS \
-	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_17_ENHANCED_CONSTRUCTORS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_CALLBACK_WRAPPERS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_INCLASS_NO_PURE_DECLS \
+	FID_CYY_Demo_Plugins_SecSystem_Source_SecSystem_Public_ANS_SecComboLogicBase_h_18_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

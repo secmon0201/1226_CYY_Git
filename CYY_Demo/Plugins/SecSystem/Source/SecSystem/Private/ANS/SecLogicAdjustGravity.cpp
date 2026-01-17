@@ -6,7 +6,8 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-void USecLogicAdjustGravity::OnStart(USecComboComponent* ComboComp, float TotalDuration)
+// 【关键修改点】：OnStart -> OnStart_Implementation
+void USecLogicAdjustGravity::OnStart_Implementation(USecComboComponent* ComboComp, float TotalDuration)
 {
 	if (ACharacter* Char = GetCharacter(ComboComp))
 	{
@@ -44,7 +45,8 @@ void USecLogicAdjustGravity::OnStart(USecComboComponent* ComboComp, float TotalD
 	}
 }
 
-void USecLogicAdjustGravity::OnEnd(USecComboComponent* ComboComp)
+// 【关键修改点】：OnEnd -> OnEnd_Implementation
+void USecLogicAdjustGravity::OnEnd_Implementation(USecComboComponent* ComboComp)
 {
 	if (bRestoreOnEnd)
 	{

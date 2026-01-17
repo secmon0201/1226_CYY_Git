@@ -6,6 +6,11 @@
 #include "SecComboComponent.h"
 #include "GameFramework/Character.h"
 
+// 默认实现为空，留给子类发挥
+void USecComboLogicBase::OnStart_Implementation(USecComboComponent* ComboComp, float TotalDuration) {}
+void USecComboLogicBase::OnTick_Implementation(USecComboComponent* ComboComp, float DeltaTime) {}
+void USecComboLogicBase::OnEnd_Implementation(USecComboComponent* ComboComp) {}
+
 ACharacter* USecComboLogicBase::GetCharacter(USecComboComponent* ComboComp) const
 {
 	return ComboComp ? Cast<ACharacter>(ComboComp->GetOwner()) : nullptr;
